@@ -346,4 +346,30 @@ body {
   .btn {
     flex: 0 0 auto;
   }
+
+  /* Improve desktop layout: make columns match height and
+     ensure intro content uses available vertical space. */
+  .page {
+    align-items: stretch;
+  }
+
+  .intro,
+  .projects-panel {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .intro-inner {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  /* Push the small tag group towards the bottom of the intro column
+     so the left panel doesn't feel empty on large screens. */
+  .tags {
+    margin-top: auto;
+  }
 }
