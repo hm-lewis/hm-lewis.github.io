@@ -143,7 +143,12 @@ body {
     var(--brand-teal) 0%,
     var(--brand-teal-dark) 100%
   );
+  /* Use the standard property first for compatibility, then the
+     vendor-prefixed version for older WebKit browsers. Also ensure
+     the text becomes transparent for the gradient to show. */
+  background-clip: text;
   -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   color: transparent;
 }
 
