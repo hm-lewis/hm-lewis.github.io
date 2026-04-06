@@ -377,21 +377,22 @@ body {
      rounded card container by placing the actions absolutely inside the
      card and giving the card enough right padding on wide layouts. */
   .project-card {
-    padding-right: 96px;
+    padding-right: 160px;
   }
 
   /* Position actions at the right edge of the card so their glow isn't
      clipped by the rounded container. Keep them vertically centered. */
   .project-actions {
     position: absolute;
-    right: 22px;
+    right: 28px;
     top: 50%;
     transform: translateY(-50%);
     margin-right: 0; /* reset any previous nudges */
+    z-index: 3;
   }
 
   /* Ensure the left column content doesn't overlap the absolute actions */
   .project-card > div:first-child {
-    margin-right: 24px;
+    margin-right: 160px;
   }
 }
