@@ -1,15 +1,46 @@
 /* --------------------------------------------------
-   Root variables & global reset
+   ROOT VARIABLES — Unified Chord App Palette
 -------------------------------------------------- */
 :root {
-  --bg: #050816;
-  --accent: #4f46e5;
-  --accent-soft: rgba(79, 70, 229, 0.12);
-  --text-main: #f9fafb;
-  --text-muted: #9ca3af;
-  --border-subtle: rgba(148, 163, 184, 0.25);
+  /* Primary gradient colors (exact from the app) */
+  --brand-teal:        #0fa3a8;   /* left side of gradient */
+  --brand-teal-dark:   #006f8e;   /* right side of gradient */
+
+  /* Secondary blue tones */
+  --brand-secondary:   #3c76ff;
+  --brand-mix:         #0db1f1;
+
+  /* Orange musical accent */
+  --accent-chord-orange: #e57a41;
+
+  /* Background gradient */
+  --bg-top:      #eef5fa;
+  --bg-bottom:   #deebf3;
+
+  /* Frosted surfaces */
+  --panel-bg:     rgba(255, 255, 255, 0.62);
+  --card-bg:      rgba(255, 255, 255, 0.58);
+  --border-light: rgba(180, 200, 220, 0.55);
+
+  /* TEXT — slightly darker for better contrast */
+  --text-main:   #0c1624;
+  --text-muted:  #3a4754;
+  --text-soft:   #566476;
+
+  /* Secondary button (Start game) */
+  --btn-secondary-bg:     #dbe8ef;
+  --btn-secondary-hover:  #e5f0f6;
+  --btn-secondary-border: #b8ccd6;
+  --btn-secondary-text:   #1f2d38;
+
+  /* Glow */
+  --accent-soft: rgba(120, 170, 255, 0.25);
+
+  /* Radii & shadows */
   --card-radius: 18px;
-  --shadow-soft: 0 22px 45px rgba(15, 23, 42, 0.75);
+
+  /* EXACT chord-app shadow for the primary button */
+  --primary-shadow: 0 8px 18px rgba(0, 112, 135, 0.22);
 }
 
 * {
@@ -18,9 +49,13 @@
   box-sizing: border-box;
 }
 
+a {
+  text-decoration: none;
+}
+
 body {
   font-family: "Inter", sans-serif;
-  background: radial-gradient(circle at top left, #1d2340 0, #050816 45%, #020617 100%);
+  background: linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
   color: var(--text-main);
   padding: 20px 14px;
   display: flex;
@@ -28,96 +63,93 @@ body {
 }
 
 /* --------------------------------------------------
-   Page wrapper
+   PAGE STRUCTURE
 -------------------------------------------------- */
 .page {
   width: 100%;
   max-width: 1040px;
   display: flex;
   flex-direction: column;
-  gap: 40px; /* increased section spacing */
+  gap: 40px;
 }
 
 /* --------------------------------------------------
-   Intro panel
+   PANELS
 -------------------------------------------------- */
-.intro {
-  padding: 20px 18px;
+.intro,
+.projects-panel {
+  padding: 26px;
   border-radius: 24px;
-  background: radial-gradient(circle at top left, #1a233a 0, #020617 55%); /* lighter than projects */
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  box-shadow: var(--shadow-soft);
+  background: var(--panel-bg);
+  border: 1px solid var(--border-light);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
   position: relative;
   overflow: hidden;
+  box-shadow: 0 12px 25px rgba(0, 40, 80, 0.08);
 }
 
-.intro::before {
-  content: "";
-  position: absolute;
-  inset: -40%;
-  background:
-    radial-gradient(circle at 0% 0%, rgba(96, 165, 250, 0.18) 0, transparent 55%),
-    radial-gradient(circle at 100% 0%, rgba(129, 140, 248, 0.18) 0, transparent 55%);
-  opacity: 0.9;
-}
-
-/* Allow pointer events to reach interactive elements (buttons/links)
-   by making decorative pseudo-elements ignore pointer events and
-   ensuring action areas sit above them. */
 .intro::before,
 .projects-panel::before,
 .project-card::before {
+  content: "";
+  position: absolute;
+  inset: -35%;
   pointer-events: none;
+  background: radial-gradient(circle at 0% 0%, var(--accent-soft) 0%, transparent 60%);
+  opacity: 0.35;
   z-index: 0;
 }
 
-.intro-inner {
+.intro-inner,
+.projects-inner {
   position: relative;
   z-index: 1;
-  max-width: 480px; /* constrain intro width */
 }
 
+/* --------------------------------------------------
+   INTRO CONTENT
+-------------------------------------------------- */
 .pill {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   padding: 4px 10px;
   border-radius: 999px;
-  background: rgba(15, 23, 42, 0.9);
-  border: 1px solid rgba(148, 163, 184, 0.18); /* softer border */
+  background: rgba(200, 220, 240, 0.25);
+  border: 1px solid rgba(180, 200, 220, 0.45);
   color: var(--text-muted);
   font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: 16px;
 }
 
 .pill-dot {
   width: 7px;
   height: 7px;
   border-radius: 999px;
-  background: #22c55e;
-  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.25);
+  background: #1ec969;
 }
 
 .name {
-  font-size: 26px;
+  font-size: 32px;
   font-weight: 700;
-  margin-bottom: 16px; /* increased */
-  letter-spacing: -0.03em;
+  margin: 16px 0 12px;
 }
 
+/* ✅ Name uses the Open App gradient */
 .name span {
-  background: linear-gradient(120deg, #a5b4fc, #38bdf8);
+  background: linear-gradient(
+    90deg,
+    var(--brand-teal) 0%,
+    var(--brand-teal-dark) 100%
+  );
   -webkit-background-clip: text;
-  background-clip: text;
   color: transparent;
 }
 
 .subtitle {
   font-size: 15px;
-  font-weight: 500;
-  color: #d7d9e0; /* improved readability */
+  color: var(--text-muted);
   margin-bottom: 18px;
 }
 
@@ -125,259 +157,145 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 24px; /* improved spacing rhythm */
 }
 
 .tag {
   font-size: 11px;
-  padding: 4px 9px;
+  padding: 4px 10px;
   border-radius: 999px;
-  background: rgba(15, 23, 42, 0.9);
-  border: 1px solid rgba(148, 163, 184, 0.18); /* softer */
+  background: rgba(200, 220, 240, 0.35);
+  border: 1px solid rgba(160, 180, 200, 0.55);
   color: var(--text-muted);
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.tag-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 999px;
-  background: rgba(148, 163, 184, 0.9);
 }
 
 /* --------------------------------------------------
-   Projects panel
+   PROJECTS
 -------------------------------------------------- */
-.projects-panel {
-  padding: 20px 18px;
-  border-radius: 24px;
-  background: linear-gradient(145deg, rgba(10, 15, 30, 0.96), rgba(10, 15, 30, 0.98)); /* darker */
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  box-shadow: var(--shadow-soft);
-  position: relative;
-  overflow: hidden;
-}
-
-.projects-panel::before {
-  content: "";
-  position: absolute;
-  inset: -40%;
-  background:
-    radial-gradient(circle at 0% 100%, rgba(56, 189, 248, 0.16) 0, transparent 55%),
-    radial-gradient(circle at 100% 100%, rgba(129, 140, 248, 0.16) 0, transparent 55%);
-  opacity: 0.9;
-}
-
-.projects-inner {
-  position: relative;
-  z-index: 1;
-}
-
-/* Ensure project content (including buttons) sits above decorative layers */
-.project-card > div:first-child,
-.project-actions {
-  position: relative;
-  z-index: 2;
-}
-
 .projects-title {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  margin-bottom: 4px;
   padding-bottom: 6px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06); /* new separator */
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(150, 170, 200, 0.4);
+  color: var(--text-main);
 }
 
 .projects-subtitle {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-muted);
-  margin-bottom: 18px;
-}
-
-.projects-list {
-  display: flex;
-  flex-direction: column;
-  gap: 18px; /* slightly increased */
+  margin-bottom: 20px;
 }
 
 /* --------------------------------------------------
-   Project cards
+   PROJECT CARDS
 -------------------------------------------------- */
-.project-card {
-  border-radius: var(--card-radius);
-  padding: 20px 14px; /* more top padding */
-  background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.9) 0, rgba(15, 23, 42, 0.98) 55%);
-  border: 1px solid var(--border-subtle);
+.projects-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 20px;
+}
+
+.project-card {
+  border-radius: var(--card-radius);
+  padding: 24px 20px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  backdrop-filter: blur(18px);
   position: relative;
-  overflow: hidden;
-}
-
-.project-card::before {
-  content: "";
-  position: absolute;
-  inset: -40%;
-  background: radial-gradient(circle at 0 0, var(--accent-soft) 0, transparent 55%);
-  opacity: 0.30; /* softer glow */
-}
-
-.project-card > div:first-child {
-  max-width: 560px; /* constrain text width */
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 12px 25px rgba(0, 40, 80, 0.08);
 }
 
 .project-label {
   font-size: 11px;
+  color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: var(--text-muted);
 }
 
 .project-title {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
-  margin-bottom: 4px;
+  color: var(--text-main);
 }
 
 .project-desc {
-  font-size: 13px;
-  color: #d1d5db;
-  line-height: 1.5;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-soft);
 }
 
 .project-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
+}
+
+.project-tag-pill {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(200, 220, 240, 0.35);
+  border: 1px solid rgba(160, 180, 200, 0.55);
   font-size: 11px;
   color: var(--text-muted);
 }
 
-.project-tag-pill {
-  padding: 3px 8px;
-  border-radius: 999px;
-  background: rgba(15, 23, 42, 0.9);
-  border: 1px solid rgba(148, 163, 184, 0.4);
-}
-
 /* --------------------------------------------------
-   Buttons
+   BUTTONS — EXACT MATCH TO CHORD APP
 -------------------------------------------------- */
 .project-actions {
   display: flex;
-  gap: 8px;
+  width: 100%;
   flex-wrap: wrap;
+  gap: 8px;
 }
 
 .btn {
-  border-radius: 999px;
-  padding: 7px 13px;
-  height: 36px; /* perfect vertical alignment */
-  font-size: 12px;
+  border-radius: 16px;
+  padding: 10px 18px;
+  font-size: 14px;
   font-weight: 500;
-  text-decoration: none;
+  text-align: center;
   cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
   flex: 1 1 auto;
-  border: 1px solid transparent;
-  color: #e5e7eb;
+  border: none;
 }
 
+/* ✅ PRIMARY BUTTON — exact gradient */
 .btn-primary {
-  background: linear-gradient(135deg, #4f46e5, #38bdf8);
-  color: #f9fafb;
-  box-shadow: 0 10px 25px rgba(56, 189, 248, 0.35);
+  background: linear-gradient(
+    90deg,
+    var(--brand-teal) 0%,
+    var(--brand-teal-dark) 100%
+  );
+  color: #ffffff;
+  box-shadow: var(--primary-shadow);
 }
 
-.btn-secondary {
-  background: rgba(15, 23, 42, 0.9);
-  border-color: rgba(148, 163, 184, 0.7);
-}
-
-/* Hover */
 .btn-primary:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 12px 28px rgba(56, 189, 248, 0.42);
+  filter: brightness(0.95);
+}
+
+/* ✅ SECONDARY BUTTON — exact Start Game */
+.btn-secondary {
+  background: var(--btn-secondary-bg);
+  border: 1px solid var(--btn-secondary-border);
+  color: var(--btn-secondary-text);
 }
 
 .btn-secondary:hover {
-  border-color: rgba(148, 163, 184, 0.9);
-  background: rgba(15, 23, 42, 1);
+  background: var(--btn-secondary-hover);
 }
 
 /* --------------------------------------------------
-   Desktop layout
+   DESKTOP
 -------------------------------------------------- */
-@media (min-width: 760px) {
-  .name {
-    font-size: 32px;
-  }
-}
-
 @media (min-width: 900px) {
-  /* Stack sections vertically on wide screens: intro takes full width
-     and projects sit below it. */
-  .page {
-    flex-direction: column;
-  }
 
-  .intro,
-  .projects-panel {
-    padding: 32px 28px; /* increased */
-  }
-
-  .project-card {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    gap: 24px; /* improved spacing */
-  }
-
-  .project-actions {
-    flex-wrap: nowrap;
-  }
-
-  .btn {
-    flex: 0 0 auto;
-  }
-
-  /* Improve desktop layout: make columns match height and
-     ensure intro content uses available vertical space. */
-  .page {
-    align-items: stretch;
-  }
-
-  .intro,
-  .projects-panel {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .intro-inner {
-    flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-  }
-
-  /* Push the small tag group towards the bottom of the intro column
-     so the left panel doesn't feel empty on large screens. */
-  .tags {
-    margin-top: auto;
-  }
-
-  /* Projects list becomes a 2-column grid; cards are regular flow items.
-     On this layout we switch back to static positioning for actions so
-     they don't overlap text. */
   .projects-list {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -385,20 +303,10 @@ body {
   }
 
   .project-card {
-    padding-right: 24px; /* reset earlier large padding */
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
   }
 
   .project-actions {
-    position: static;
-    margin-left: auto;
-    transform: none;
-    right: auto;
-    z-index: 2;
-  }
-
-  .project-card > div:first-child {
-    margin-right: 0;
+    width: 100%;
   }
 }
