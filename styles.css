@@ -61,6 +61,16 @@ body {
   opacity: 0.9;
 }
 
+/* Allow pointer events to reach interactive elements (buttons/links)
+   by making decorative pseudo-elements ignore pointer events and
+   ensuring action areas sit above them. */
+.intro::before,
+.projects-panel::before,
+.project-card::before {
+  pointer-events: none;
+  z-index: 0;
+}
+
 .intro-inner {
   position: relative;
   z-index: 1;
@@ -163,6 +173,13 @@ body {
 .projects-inner {
   position: relative;
   z-index: 1;
+}
+
+/* Ensure project content (including buttons) sits above decorative layers */
+.project-card > div:first-child,
+.project-actions {
+  position: relative;
+  z-index: 2;
 }
 
 .projects-title {
