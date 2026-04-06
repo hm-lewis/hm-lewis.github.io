@@ -217,7 +217,7 @@ body {
 
 .project-label {
   font-size: 11px;
-  color: var(--text-muted);
+  color: var(--accent-chord-orange);
   text-transform: uppercase;
   letter-spacing: 0.12em;
 }
