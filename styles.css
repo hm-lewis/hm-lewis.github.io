@@ -323,8 +323,10 @@ body {
 }
 
 @media (min-width: 900px) {
+  /* Stack sections vertically on wide screens: intro takes full width
+     and projects sit below it. */
   .page {
-    flex-direction: row;
+    flex-direction: column;
   }
 
   .intro,
@@ -355,7 +357,7 @@ body {
 
   .intro,
   .projects-panel {
-    flex: 1 1 0;
+    width: 100%;
     display: flex;
     flex-direction: column;
   }
@@ -373,26 +375,30 @@ body {
     margin-top: auto;
   }
 
-  /* Prevent action buttons (and their glow) from being clipped by the
-     rounded card container by placing the actions absolutely inside the
-     card and giving the card enough right padding on wide layouts. */
+  /* Projects list becomes a 2-column grid; cards are regular flow items.
+     On this layout we switch back to static positioning for actions so
+     they don't overlap text. */
+  .projects-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
   .project-card {
-    padding-right: 160px;
+    padding-right: 24px; /* reset earlier large padding */
+    flex-direction: row;
+    align-items: center;
   }
 
-  /* Position actions at the right edge of the card so their glow isn't
-     clipped by the rounded container. Keep them vertically centered. */
   .project-actions {
-    position: absolute;
-    right: 28px;
-    top: 50%;
-    transform: translateY(-50%);
-    margin-right: 0; /* reset any previous nudges */
-    z-index: 3;
+    position: static;
+    margin-left: auto;
+    transform: none;
+    right: auto;
+    z-index: 2;
   }
 
-  /* Ensure the left column content doesn't overlap the absolute actions */
   .project-card > div:first-child {
-    margin-right: 160px;
+    margin-right: 0;
   }
 }
