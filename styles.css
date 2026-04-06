@@ -372,4 +372,15 @@ body {
   .tags {
     margin-top: auto;
   }
+
+  /* Prevent action buttons (and their glow) from being clipped by the
+     rounded card container by adding extra right padding on wide layouts. */
+  .project-card {
+    padding-right: 40px;
+  }
+
+  /* Small nudge so actions don't hug the card edge */
+  .project-actions {
+    margin-right: 6px;
+  }
 }
